@@ -4,26 +4,30 @@ import axios from "axios"
 function App() {
   const [jokes, setJokes] = useState([])
 
-  useEffect(()=>{
-    axios.get('http://localhost:3000/api/jokes').then((res)=>{
-      setJokes(res.data)
-    }).catch((err)=>{
-      console.log(err);
-    })
-  }, [])
+  useEffect(() => {
+    axios.get('/api/jokes')
+      .then((response) => {
+        setJokes(response.data)
+      })
+      .catch((error) => {
+        log(error)
+      })
+  })
 
 
   return (
     <>
-      <h1>Chai and full stack app</h1>
-      <p>Jokes : {jokes.length}</p>
+      <h1>Chai and full stack</h1>
+      <p>JOKES: {jokes.length}</p>
 
-      {jokes.map((joke)=>{
-        <div key={joke.id}>
-          <h2>{joke.title}</h2>
-          <h2>{joke.content}</h2>
-        </div>
-      })}
+      {
+        jokes.map((joke, index) => (
+          <div key={joke.id}>
+            <h3>{joke.title}</h3>
+            <p>{joke.content}</p>
+          </div>
+        ))
+      }
     </>
   )
 }
